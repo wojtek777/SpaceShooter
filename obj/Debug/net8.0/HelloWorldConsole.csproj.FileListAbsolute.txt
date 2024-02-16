@@ -1,0 +1,14 @@
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/bin/Debug/net8.0/HelloWorldConsole
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/bin/Debug/net8.0/HelloWorldConsole.deps.json
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/bin/Debug/net8.0/HelloWorldConsole.runtimeconfig.json
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/bin/Debug/net8.0/HelloWorldConsole.dll
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/bin/Debug/net8.0/HelloWorldConsole.pdb
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.GeneratedMSBuildEditorConfig.editorconfig
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.AssemblyInfoInputs.cache
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.AssemblyInfo.cs
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.csproj.CoreCompileInputs.cache
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.dll
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/refint/HelloWorldConsole.dll
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.pdb
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/HelloWorldConsole.genruntimeconfig.cache
+/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/Debug/net8.0/ref/HelloWorldConsole.dll
