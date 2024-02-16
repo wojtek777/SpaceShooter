@@ -16,7 +16,7 @@ bool consoleSizeError = false;
 int previousSpaceUpdate = 0;
 
 Console.CursorVisible = false;
-List<laserBolt> laserBoltList = new List<laserBolt>();
+List<LaserBolt> LaserBoltList = new List<LaserBolt>();
 
 try
 {
@@ -169,8 +169,8 @@ void HandleInput()
 				break;
 			case ConsoleKey.Spacebar:
 				shipVelocity = 0;
-				laserBolt bolt = new laserBolt(1, shipPosition);
-				laserBoltList.Add(bolt);
+				LaserBolt bolt = new LaserBolt(1, shipPosition);
+				LaserBoltList.Add(bolt);
 				break;
 			case ConsoleKey.Enter:
 				Console.ReadLine();
@@ -202,7 +202,7 @@ GetInput:
 
 void Update()
 {
-	laserBoltList.RemoveAll(elem => !elem.isActive());
+	LaserBoltList.RemoveAll(elem => !elem.isActive());
 
 	for (int i = 0; i < height - 1; i++)
 	{
@@ -241,7 +241,7 @@ void Update()
 		gameRunning = false;
 	}
 
-	foreach (var bolt in laserBoltList)
+	foreach (var bolt in LaserBoltList)
 	{
 		scene[bolt.getY(), bolt.getX()] = ' ';
 		bolt.travel(height - 1, scene);
@@ -271,13 +271,13 @@ GetInput:
 
 
 
-class laserBolt
+class LaserBolt
 {
 	int yPos;
 	int xPos;
 	bool active;
 
-	public laserBolt(int y, int x, bool act = true)
+	public LaserBolt(int y, int x, bool act = true)
 	{
 		yPos = y;
 		xPos = x;
@@ -305,6 +305,32 @@ class laserBolt
 	internal bool isActive()
 	{
 		return active;
+	}
+}
+
+interface IObstacle
+{
+	void move();
+	bool checkCollision(int yPlayer, int xPlayer);
+}
+
+class Asteroid : IObstacle
+{
+	int yPos;
+	int xPos;
+	public Asteroid (int yPos, int xPos)
+	{
+		this.yPos = yPos;
+		this.xPos = xPos;
+	}
+	public void move()
+	{
+		yPos -= 1;
+	}
+
+	public bool checkCollision(int yPlayer, int xPlayer)
+	{
+		return yPos == yPlayer && xPos == xPlayer;
 	}
 }
 

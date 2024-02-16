@@ -12,3 +12,6 @@ HOW TO RUN
 HOW TO PLAY
 -> use keyboard arrows or 'a,w,d' to control your ship movement
 -> use spacebar to shoot
+
+EXIT GAME
+-> to exit press 'ESC' on keyboard
