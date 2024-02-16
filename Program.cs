@@ -83,9 +83,11 @@ void StartScreen()
 	Console.Clear();
 	Console.WriteLine("Welcome to Space shooter game");
 	Console.WriteLine();
-	Console.WriteLine("Use A, W, and D to control your movement.");
+	Console.WriteLine("Use a,d,w or arrows to control your movement.");
 	Console.WriteLine();
-	Console.Write("Press [enter] to start...");
+	Console.WriteLine("Use spacebar to shoot");
+	Console.WriteLine();
+	Console.Write("Press enter or space to start...");
 	PressEnterToContinue();
 }
 
@@ -257,6 +259,8 @@ GetInput:
 	switch (key)
 	{
 		case ConsoleKey.Enter:
+			break;
+		case ConsoleKey.Spacebar:
 			break;
 		case ConsoleKey.Escape:
 			keepPlaying = false;

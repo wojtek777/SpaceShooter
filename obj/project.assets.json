@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/Game.csproj",
+      "projectUniqueName": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/SpaceShooter/Game.csproj",
       "projectName": "Game",
-      "projectPath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/Game.csproj",
+      "projectPath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/SpaceShooter/Game.csproj",
       "packagesPath": "/home/wojtek/.nuget/packages/",
-      "outputPath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/obj/",
+      "outputPath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/SpaceShooter/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/wojtek/.nuget/NuGet/NuGet.Config"
