@@ -98,6 +98,7 @@ void StartScreen()
 
 void InitializeScene()
 {
+	score = 0;
 	gameRunning = true;
 	shipPosition = width / 2;
 	shipVelocity = 0;
@@ -188,7 +189,7 @@ void GameOverScreen()
 	Console.SetCursorPosition(0, 0);
 	Console.WriteLine("Game Over");
 	Console.WriteLine($"Score: {score}");
-	Console.WriteLine($"Play Again (Y/N)?");
+	Console.WriteLine($"Continue (Y/N)?");
 GetInput:
 	ConsoleKey key = Console.ReadKey(true).Key;
 	switch (key)
