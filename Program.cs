@@ -43,7 +43,7 @@ try
 			Render();
 			if (gameRunning)
 			{
-				Thread.Sleep(TimeSpan.FromMilliseconds(60));
+				Thread.Sleep(TimeSpan.FromMilliseconds(68));
 			}
 		}
 		if (keepPlaying)
@@ -173,7 +173,7 @@ void HandleInput()
 				break;
 			case ConsoleKey.Spacebar:
 				shipVelocity = 0;
-				LaserBolt bolt = new(1, shipPosition);
+				LaserBolt bolt = new(0, shipPosition);
 				LaserBoltList.Add(bolt);
 				break;
 			case ConsoleKey.Enter:
@@ -289,7 +289,7 @@ void Update()
 	{
 		if (scene[height - 1, x] != '.' && 
 		scene[height - 1, x] != '|' && 
-		scene[height - 2, x] != '|' && rnd.Next(1,5) > 3)
+		scene[height - 2, x] != '|' && rnd.Next(1,10) > 8)
 		{
 			Asteroid ast = new(height - 1, x);
 			AsteroidList.Add(ast);
@@ -418,7 +418,10 @@ class Asteroid : IObstacle
 	public bool CollideWithLaser(char [,] scene)
 	{
 		if (yPos >= 3)
-			return scene[yPos - 1, xPos] == '|' || scene[yPos - 2, xPos] == '|' || scene[yPos - 3, xPos] == '|';
+			return scene[yPos, xPos] == '|' || 
+			scene[yPos - 1, xPos] == '|' || 
+			scene[yPos - 2, xPos] == '|' ||
+			scene[yPos - 3, xPos] == '|';
 		return false;
 	}
 
