@@ -1,9 +1,12 @@
 ﻿﻿using System;
 using System.Text;
 using System.Threading;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 int width = 50;
 int height = 30;
+const int spaceWidth = 36;
 int windowWidth;
 int windowHeight;
 char[,] scene;
@@ -14,9 +17,11 @@ bool gameRunning;
 bool keepPlaying = true;
 bool consoleSizeError = false;
 int previousSpaceUpdate = 0;
+Random rnd = new Random();
 
 Console.CursorVisible = false;
-List<LaserBolt> LaserBoltList = new List<LaserBolt>();
+List<LaserBolt> LaserBoltList = [];
+List<Asteroid> AsteroidList = [];
 
 try
 {
@@ -93,7 +98,6 @@ void StartScreen()
 
 void InitializeScene()
 {
-	const int spaceWidth = 36;
 	gameRunning = true;
 	shipPosition = width / 2;
 	shipVelocity = 0;
@@ -169,7 +173,7 @@ void HandleInput()
 				break;
 			case ConsoleKey.Spacebar:
 				shipVelocity = 0;
-				LaserBolt bolt = new LaserBolt(1, shipPosition);
+				LaserBolt bolt = new(1, shipPosition);
 				LaserBoltList.Add(bolt);
 				break;
 			case ConsoleKey.Enter:
@@ -202,7 +206,44 @@ GetInput:
 
 void Update()
 {
-	LaserBoltList.RemoveAll(elem => !elem.isActive());
+	foreach (var asteroid in AsteroidList)
+	{
+		//scene[asteroid.GetY(), asteroid.GetX()] = ' ';
+		asteroid.Move();
+		if (asteroid.CollideWithPlayer(shipPosition))
+		{
+			gameRunning = false;
+			asteroid.Destroy(scene);
+		}
+		else if (asteroid.CollideWithLaser(scene))
+		{
+			LaserBoltList.RemoveAll(elem => elem.GetX() == asteroid.GetX() && 
+				(elem.GetY() + 1 == asteroid.GetY() || 
+				elem.GetY() + 2 == asteroid.GetY()));
+			asteroid.Destroy(scene);
+			score++;
+		}
+		else if (asteroid.IsOutside())
+		{
+			asteroid.Destroy(scene);
+		}
+	}
+
+	AsteroidList.RemoveAll(elem => !elem.IsActive());
+	LaserBoltList.RemoveAll(elem => !elem.IsActive());
+	Dictionary<int, int> wages = [];
+	
+
+	for (int i = (width - spaceWidth) / 2 + 1; i < (width + spaceWidth) / 2 - 1; i++)
+	{
+		wages.Add(i, rnd.Next(1, 10));
+	}
+
+	List<int> asteroidX = 
+		(from wage in wages
+			where wage.Value > 8
+			select wage.Key
+		).ToList();
 
 	for (int i = 0; i < height - 1; i++)
 	{
@@ -212,9 +253,9 @@ void Update()
 				scene[i, j] = scene[i + 1, j];
 		}
 	}
-	int spaceUpdate =
-		Random.Shared.Next(5) < 4 ? previousSpaceUpdate :
-		Random.Shared.Next(3) - 1;
+	/* int spaceUpdate =
+		rnd.Next(5) < 4 ? previousSpaceUpdate :
+		rnd.Next(3) - 1;
 	if (spaceUpdate is -1 && scene[height - 1, 0] is ' ') spaceUpdate = 1;
 	if (spaceUpdate is 1 && scene[height - 1, width - 1] is ' ') spaceUpdate = -1;
 	switch (spaceUpdate)
@@ -222,31 +263,46 @@ void Update()
 		case -1: // left
 			for (int i = 0; i < width - 1; i++)
 			{
-				scene[height - 1, i] = scene[height - 1, i + 1];
+				if (scene[height - 1, i + 1] != '|' && scene[height - 1, i + 1] != '*')
+					scene[height - 1, i] = scene[height - 1, i + 1];
 			}
 			scene[height - 1, width - 1] = '.';
 			break;
 		case 1: // right
 			for (int i = width - 1; i > 0; i--)
 			{
-				scene[height - 1, i] = scene[height - 1, i - 1];
+				if (scene[height - 1, i - 1] != '|' && scene[height - 1, i - 1] != '*')
+					scene[height - 1, i] = scene[height - 1, i - 1];
 			}
 			scene[height - 1, 0] = '.';
 			break;
 	}
-	previousSpaceUpdate = spaceUpdate;
+	previousSpaceUpdate = spaceUpdate; */
 	shipPosition += shipVelocity;
 	if (shipPosition < 0 || shipPosition >= width || scene[1, shipPosition] is not ' ')
 	{
 		gameRunning = false;
 	}
 
+	foreach (var x in asteroidX)
+	{
+		if (scene[height - 1, x] != '.' && 
+		scene[height - 1, x] != '|' && 
+		scene[height - 2, x] != '|' && rnd.Next(1,5) > 3)
+		{
+			Asteroid ast = new(height - 1, x);
+			AsteroidList.Add(ast);
+			scene[height - 1, x] = '*';
+		}
+		
+	}
+
 	foreach (var bolt in LaserBoltList)
 	{
-		scene[bolt.getY(), bolt.getX()] = ' ';
-		bolt.travel(height - 1, scene);
-		if (bolt.isActive())
-			scene[bolt.getY(), bolt.getX()] = '|';
+		scene[bolt.GetY(), bolt.GetX()] = ' ';
+		bolt.Travel(height - 1, scene);
+		if (bolt.IsActive())
+			scene[bolt.GetY(), bolt.GetX()] = '|';
 		//else
 		//	gameRunning = false;
 	}
@@ -284,16 +340,16 @@ class LaserBolt
 		active = act;
 	}
 
-	internal int getX()
+	internal int GetX()
 	{
 		return xPos;
 	}
 
-	internal int getY()
+	internal int GetY()
 	{
 		return yPos;
 	}
-	internal void travel(int height, char [,] scene)
+	internal void Travel(int height, char [,] scene)
 	{
 		yPos += 2;
 		if(yPos >= height || scene[yPos, xPos] == '.' || scene[yPos - 1, xPos] == '.')
@@ -302,35 +358,79 @@ class LaserBolt
 		} 
 	}
 
-	internal bool isActive()
+	internal bool IsActive()
 	{
 		return active;
 	}
+
+	//internal void Destroy();
 }
 
 interface IObstacle
 {
-	void move();
-	bool checkCollision(int yPlayer, int xPlayer);
+	void Move();
+	int GetY();
+	int GetX();
+	bool CollideWithPlayer(int xPlayer);
+	bool IsOutside();
+	bool CollideWithLaser(char [,] scene);
+	bool IsActive();
+	void Destroy(char [,] scene);
 }
 
 class Asteroid : IObstacle
 {
 	int yPos;
 	int xPos;
-	public Asteroid (int yPos, int xPos)
+	bool isActive;
+	public Asteroid (int yPos, int xPos, bool active = true)
 	{
 		this.yPos = yPos;
 		this.xPos = xPos;
+		isActive = active;
 	}
-	public void move()
+	public void Move()
 	{
 		yPos -= 1;
 	}
 
-	public bool checkCollision(int yPlayer, int xPlayer)
+	public int GetY()
 	{
-		return yPos == yPlayer && xPos == xPlayer;
+		return yPos;
 	}
+
+	public int GetX()
+	{
+		return xPos;
+	}
+
+	public bool CollideWithPlayer(int xPlayer)
+	{
+		return yPos == 2 && xPos == xPlayer;
+	}
+
+	public bool IsOutside()
+	{
+		return (yPos <= 1);
+	}
+
+	public bool CollideWithLaser(char [,] scene)
+	{
+		if (yPos >= 3)
+			return scene[yPos - 1, xPos] == '|' || scene[yPos - 2, xPos] == '|' || scene[yPos - 3, xPos] == '|';
+		return false;
+	}
+
+	public void Destroy(char [,] scene)
+	{
+		isActive = false;
+		scene[yPos, xPos] = ' ';
+	}
+
+	public bool IsActive()
+	{
+		return isActive;
+	}
+
 }
 
