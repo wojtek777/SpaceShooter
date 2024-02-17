@@ -244,6 +244,7 @@ void Update()
 			where wage.Value > 8
 			select wage.Key
 		).ToList();
+	wages.Clear();
 
 	for (int i = 0; i < height - 1; i++)
 	{
@@ -253,7 +254,7 @@ void Update()
 				scene[i, j] = scene[i + 1, j];
 		}
 	}
-	/* int spaceUpdate =
+	int spaceUpdate =
 		rnd.Next(5) < 4 ? previousSpaceUpdate :
 		rnd.Next(3) - 1;
 	if (spaceUpdate is -1 && scene[height - 1, 0] is ' ') spaceUpdate = 1;
@@ -277,7 +278,7 @@ void Update()
 			scene[height - 1, 0] = '.';
 			break;
 	}
-	previousSpaceUpdate = spaceUpdate; */
+	previousSpaceUpdate = spaceUpdate;
 	shipPosition += shipVelocity;
 	if (shipPosition < 0 || shipPosition >= width || scene[1, shipPosition] is not ' ')
 	{
