@@ -36,10 +36,10 @@ namespace GameTests
         public void BoltTravel()
         {
             char [,] scene = new char [4,4] {
-            {'0', '1', '2', '3'} ,
-            {'4', '5', '6', '7'} ,
-            {'8', '9', '10', '11'} ,
-            {'12', '13', '14', '15'}
+            {'0', '0', '0', '0'} ,
+            {'1', '1', '1', '1'} ,
+            {'2', '2', '2', '2'} ,
+            {'3', '3', '3', '3'}
             };
             LaserBolt testLaserBolt = new LaserBolt(1, 2);
             testLaserBolt.Travel(4, scene);
@@ -94,10 +94,10 @@ namespace GameTests
             //Scene is displayed from bottom to top, meaning that 'highest floor' in real array
             //would be actualy displayed on the bottom on the screen during the game
             char [,] scene = new char [4,4] {
-            {'0', '1', '2', '3'} ,
-            {'4', '5', '6', '7'} ,
-            {'8', '9', '10', '11'} ,
-            {'12', '*', '14', '15'}
+            {'0', '0', '0', '0'} ,
+            {'1', '1', '1', '1'} ,
+            {'2', '2', '2', '2'} ,
+            {'3', '*', '3', '3'}
             };
             Asteroid testAsteroid = new Asteroid(3, 1);
             testAsteroid.Destroy(scene);
