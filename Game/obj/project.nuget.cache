@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LNO5HaO6l38Ehs7TvCwROGzt5x3nAqPLl2At3FIdqLw22R9ljegrIC68OVVV3QM9u7B/aZuS7xuw+4UbBKNdRQ==",
+  "dgSpecHash": "DqHcJ8gxOuU1aFFXMvxfhySRjodd8ZQgTEJfmO1oYurYxp1jx9o+Y8tDxjq43kiLHl2Nn2Lp1ke+VxFrj9aTWw==",
   "success": true,
-  "projectFilePath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/SpaceShooter/Game.csproj",
+  "projectFilePath": "/home/wojtek/Documents/INFORMATYKA/C#/ProjectFinal/SpaceShooter/Game/Game.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
